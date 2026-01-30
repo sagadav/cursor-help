@@ -409,7 +409,6 @@ function Start-Main {
     Write-Host
     Write-LogInfo $(Translate "done")
     Show-FileTree
-    Show-FollowInfo
     Write-LogInfo $(Translate "restart_required")
     
     # Автоматически отключаем автообновление
