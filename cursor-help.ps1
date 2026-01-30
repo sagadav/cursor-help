@@ -20,7 +20,7 @@ if ($PSVersionTable.PSVersion.Major -ge 7) {
     $NC = "$([char]0x1b)[0m"
 }
 
-# Текущий язык (по умолчанию английский)
+# Текущий язык (автоматически английский)
 $LANG_CHOICE = "en"
 
 # Функция перевода
@@ -29,186 +29,65 @@ function Translate {
         [string]$key
     )
     
-    switch ($LANG_CHOICE) {
-        "ru" {
-            switch ($key) {
-                "info" { "[ИНФО]" }
-                "warn" { "[ВНИМАНИЕ]" }
-                "error" { "[ОШИБКА]" }
-                "debug" { "[ОТЛАДКА]" }
-                "get_user_error" { "Не удалось получить имя пользователя" }
-                "run_with_admin" { "Запустите скрипт от имени администратора" }
-                "example" { "Пример:" }
-                "checking_cursor" { "Проверка процесса Cursor..." }
-                "process_info" { "Получение информации о процессе" }
-                "cursor_not_found" { "Процесс Cursor не найден" }
-                "cursor_found" { "Найден запущенный процесс Cursor" }
-                "killing_attempt" { "Попытка завершения процесса..." }
-                "force_kill" { "Принудительное завершение..." }
-                "cursor_killed" { "Процесс Cursor успешно завершен" }
-                "waiting_termination" { "Ожидание завершения, попытка" }
-                "kill_failed" { "Не удалось завершить процесс после" }
-                "kill_manual" { "Завершите процесс вручную и повторите попытку" }
-                "backup_skipped" { "Файл конфигурации не существует, пропуск резервного копирования" }
-                "backup_created" { "Резервная копия создана:" }
-                "backup_failed" { "Ошибка создания резервной копии" }
-                "config_not_found" { "Файл конфигурации не найден:" }
-                "install_first" { "Установите и запустите Cursor хотя бы раз" }
-                "config_updated" { "Конфигурация обновлена:" }
-                "rights_failed" { "Не удалось установить права только для чтения" }
-                "rights_success" { "Права доступа установлены успешно" }
-                "file_structure" { "Структура файлов:" }
-                "modified" { "изменен" }
-                "empty" { "пусто" }
-                "follow_telegram" { "Подпишитесь на наш Telegram канал @exmodium" }
-                "tool_name" { "Утилита обхода Cursor" }
-                "important" { "ВАЖНО" }
-                "version_support" { "Поддерживается текущая версия Cursor" }
-                "version_not_support" { "" }
-                "done" { "Готово!" }
-                "restart_required" { "Перезапустите Cursor для применения изменений" }
-                "disable_auto_update" { "Отключить автообновление Cursor?" }
-                "no" { "Нет - оставить как есть (Enter)" }
-                "yes" { "Да - отключить" }
-                "disabling_update" { "Отключение автообновления..." }
-                "manual_steps" { "Выполните следующие шаги вручную:" }
-                "open_terminal" { "Откройте PowerShell от имени администратора" }
-                "run_commands" { "Выполните команды:" }
-                "if_no_rights" { "Если нет прав:" }
-                "verification" { "Проверка:" }
-                "check_rights" { "Убедитесь что файл только для чтения" }
-                "restart_after" { "Перезапустите Cursor после выполнения" }
-                "folder_deleted" { "Папка cursor-updater удалена" }
-                "folder_delete_failed" { "Не удалось удалить папку cursor-updater" }
-                "file_create_failed" { "Не удалось создать файл" }
-                "rights_check_failed" { "Проверка прав не пройдена" }
-                "update_disabled" { "Автообновление отключено" }
-                "update_enabled" { "Автообновление оставлено включенным" }
-                "current_machineguid" { "Текущий MachineGuid:" }
-                "machineguid_updated" { "MachineGuid успешно обновлен на:" }
-                default { "[$key]" }
-            }
-        }
-        "zh" {
-            switch ($key) {
-                "info" { "[信息]" }
-                "warn" { "[警告]" }
-                "error" { "[错误]" }
-                "debug" { "[调试]" }
-                "get_user_error" { "无法获取用户名" }
-                "run_with_admin" { "请以管理员身份运行此脚本" }
-                "example" { "示例:" }
-                "checking_cursor" { "检查 Cursor 进程..." }
-                "process_info" { "获取进程信息" }
-                "cursor_not_found" { "未发现 Cursor 进程" }
-                "cursor_found" { "发现正在运行的 Cursor 进程" }
-                "killing_attempt" { "尝试终止进程..." }
-                "force_kill" { "强制终止..." }
-                "cursor_killed" { "Cursor 进程已成功终止" }
-                "waiting_termination" { "等待进程终止，尝试" }
-                "kill_failed" { "在尝试后仍无法终止进程" }
-                "kill_manual" { "请手动终止进程后重试" }
-                "backup_skipped" { "配置文件不存在，跳过备份" }
-                "backup_created" { "备份已创建:" }
-                "backup_failed" { "备份创建失败" }
-                "config_not_found" { "未找到配置文件:" }
-                "install_first" { "请先安装并运行一次 Cursor" }
-                "config_updated" { "配置已更新:" }
-                "rights_failed" { "无法设置只读权限" }
-                "rights_success" { "访问权限设置成功" }
-                "file_structure" { "文件结构:" }
-                "modified" { "已修改" }
-                "empty" { "空" }
-                "follow_telegram" { "关注我们的 Telegram 频道 @exmodium" }
-                "tool_name" { "Cursor 绕过工具" }
-                "important" { "重要" }
-                "version_support" { "支持当前版本的 Cursor" }
-                "version_not_support" { "" }
-                "done" { "完成！" }
-                "restart_required" { "重启 Cursor 以应用更改" }
-                "disable_auto_update" { "是否禁用 Cursor 自动更新？" }
-                "no" { "否 - 保持默认设置 (按回车)" }
-                "yes" { "是 - 禁用自动更新" }
-                "disabling_update" { "正在禁用自动更新..." }
-                "manual_steps" { "自动设置失败，请手动执行以下步骤：" }
-                "open_terminal" { "以管理员身份打开 PowerShell" }
-                "run_commands" { "执行以下命令：" }
-                "if_no_rights" { "如果没有权限：" }
-                "verification" { "验证：" }
-                "check_rights" { "确保文件为只读" }
-                "restart_after" { "完成后重启 Cursor" }
-                "folder_deleted" { "cursor-updater 文件夹已删除" }
-                "folder_delete_failed" { "无法删除 cursor-updater 文件夹" }
-                "file_create_failed" { "无法创建文件" }
-                "rights_check_failed" { "权限检查失败" }
-                "update_disabled" { "自动更新已禁用" }
-                "update_enabled" { "自动更新保持启用状态" }
-                "current_machineguid" { "当前 MachineGuid:" }
-                "machineguid_updated" { "MachineGuid 已成功更新为:" }
-                default { "[$key]" }
-            }
-        }
-        default {  # English
-            switch ($key) {
-                "info" { "[INFO]" }
-                "warn" { "[WARNING]" }
-                "error" { "[ERROR]" }
-                "debug" { "[DEBUG]" }
-                "get_user_error" { "Failed to get username" }
-                "run_with_admin" { "Please run script as administrator" }
-                "example" { "Example:" }
-                "checking_cursor" { "Checking Cursor process..." }
-                "process_info" { "Getting process info" }
-                "cursor_not_found" { "No Cursor process found" }
-                "cursor_found" { "Found running Cursor process" }
-                "killing_attempt" { "Attempting to kill process..." }
-                "force_kill" { "Forcing termination..." }
-                "cursor_killed" { "Cursor process successfully terminated" }
-                "waiting_termination" { "Waiting for termination, attempt" }
-                "kill_failed" { "Failed to terminate process after" }
-                "kill_manual" { "Please terminate process manually and try again" }
-                "backup_skipped" { "Configuration file doesn't exist, skipping backup" }
-                "backup_created" { "Backup created at:" }
-                "backup_failed" { "Backup creation failed" }
-                "config_not_found" { "Configuration file not found:" }
-                "install_first" { "Please install and run Cursor at least once" }
-                "config_updated" { "Configuration updated:" }
-                "rights_failed" { "Failed to set read-only permissions" }
-                "rights_success" { "Access rights set successfully" }
-                "file_structure" { "File structure:" }
-                "modified" { "modified" }
-                "empty" { "empty" }
-                "follow_telegram" { "Follow our Telegram channel @exmodium" }
-                "tool_name" { "Cursor Bypass Tool" }
-                "important" { "IMPORTANT" }
-                "version_support" { "Current Cursor version is supported" }
-                "version_not_support" { "" }
-                "done" { "Done!" }
-                "restart_required" { "Restart Cursor to apply changes" }
-                "disable_auto_update" { "Disable Cursor auto-update?" }
-                "no" { "No - keep default settings (Press Enter)" }
-                "yes" { "Yes - disable auto-update" }
-                "disabling_update" { "Disabling auto-update..." }
-                "manual_steps" { "Automatic setup failed. Manual steps:" }
-                "open_terminal" { "Open PowerShell as administrator" }
-                "run_commands" { "Run these commands:" }
-                "if_no_rights" { "If permission denied:" }
-                "verification" { "Verification:" }
-                "check_rights" { "Verify file is read-only" }
-                "restart_after" { "Restart Cursor after completion" }
-                "folder_deleted" { "cursor-updater folder deleted" }
-                "folder_delete_failed" { "Failed to delete cursor-updater folder" }
-                "file_create_failed" { "Failed to create file" }
-                "rights_check_failed" { "Rights check failed" }
-                "update_disabled" { "Auto-update disabled" }
-                "update_enabled" { "Auto-update remains enabled" }
-                "current_machineguid" { "Current MachineGuid:" }
-                "machineguid_updated" { "MachineGuid successfully updated to:" }
-                default { "[$key]" }
-            }
-        }
+    # Только английский язык
+    switch ($key) {
+        "info" { "[INFO]" }
+        "warn" { "[WARNING]" }
+        "error" { "[ERROR]" }
+        "debug" { "[DEBUG]" }
+        "get_user_error" { "Failed to get username" }
+        "run_with_admin" { "Please run script as administrator" }
+        "example" { "Example:" }
+        "checking_cursor" { "Checking Cursor process..." }
+        "process_info" { "Getting process info" }
+        "cursor_not_found" { "No Cursor process found" }
+        "cursor_found" { "Found running Cursor process" }
+        "killing_attempt" { "Attempting to kill process..." }
+        "force_kill" { "Forcing termination..." }
+        "cursor_killed" { "Cursor process successfully terminated" }
+        "waiting_termination" { "Waiting for termination, attempt" }
+        "kill_failed" { "Failed to terminate process after" }
+        "kill_manual" { "Please terminate process manually and try again" }
+        "backup_skipped" { "Configuration file doesn't exist, skipping backup" }
+        "backup_created" { "Backup created at:" }
+        "backup_failed" { "Backup creation failed" }
+        "config_not_found" { "Configuration file not found:" }
+        "install_first" { "Please install and run Cursor at least once" }
+        "config_updated" { "Configuration updated:" }
+        "rights_failed" { "Failed to set read-only permissions" }
+        "rights_success" { "Access rights set successfully" }
+        "file_structure" { "File structure:" }
+        "modified" { "modified" }
+        "empty" { "empty" }
+        "follow_telegram" { "Follow our Telegram channel @exmodium" }
+        "tool_name" { "Cursor Bypass Tool" }
+        "important" { "IMPORTANT" }
+        "version_support" { "Current Cursor version is supported" }
+        "version_not_support" { "" }
+        "done" { "Done!" }
+        "restart_required" { "Restart Cursor to apply changes" }
+        "disable_auto_update" { "Disable Cursor auto-update?" }
+        "no" { "No - keep default settings (Press Enter)" }
+        "yes" { "Yes - disable auto-update" }
+        "disabling_update" { "Disabling auto-update..." }
+        "manual_steps" { "Automatic setup failed. Manual steps:" }
+        "open_terminal" { "Open PowerShell as administrator" }
+        "run_commands" { "Run these commands:" }
+        "if_no_rights" { "If permission denied:" }
+        "verification" { "Verification:" }
+        "check_rights" { "Verify file is read-only" }
+        "restart_after" { "Restart Cursor after completion" }
+        "folder_deleted" { "cursor-updater folder deleted" }
+        "folder_delete_failed" { "Failed to delete cursor-updater folder" }
+        "file_create_failed" { "Failed to create file" }
+        "rights_check_failed" { "Rights check failed" }
+        "update_disabled" { "Auto-update disabled" }
+        "update_enabled" { "Auto-update remains enabled" }
+        "current_machineguid" { "Current MachineGuid:" }
+        "machineguid_updated" { "MachineGuid successfully updated to:" }
+        default { "[$key]" }
     }
-} 
+}
 
 # Функции логирования
 function Write-LogInfo {
@@ -247,21 +126,7 @@ function Test-AdminRights {
 $STORAGE_FILE = "$env:APPDATA\Cursor\User\globalStorage\storage.json"
 $BACKUP_DIR = "$env:APPDATA\Cursor\User\globalStorage\backups"
 
-# Выбор языка
-function Select-Language {
-    Write-Host "Select language / Выберите язык / 选择语言:"
-    Write-Host "1) English"
-    Write-Host "2) Русский"
-    Write-Host "3) 中文"
-    $choice = Read-Host
-    
-    switch ($choice) {
-        "1" { $script:LANG_CHOICE = "en" }
-        "2" { $script:LANG_CHOICE = "ru" }
-        "3" { $script:LANG_CHOICE = "zh" }
-        default { $script:LANG_CHOICE = "en" }
-    }
-}
+# Убрана функция выбора языка - всегда английский
 
 # Проверка и завершение процесса Cursor
 function Stop-CursorProcess {
@@ -421,13 +286,16 @@ function Show-FollowInfo {
     Write-Host
 }
 
-# Отключение автообновлений
+# Отключение автообновлений (автоматически выбирает опцию 2)
 function Disable-AutoUpdate {
     Write-Host
     Write-LogWarn $(Translate "disable_auto_update")
     Write-Host "1) $(Translate 'no')"
     Write-Host "2) $(Translate 'yes')"
-    $choice = Read-Host
+    
+    # Автоматически выбираем опцию 2
+    $choice = "2"
+    Write-Host "Auto-selected: 2 (disable auto-update)"
     
     if ($choice -eq "2") {
         Write-Host
@@ -494,10 +362,10 @@ function Update-MachineGuid {
         if ($updatedGuid -eq $newGuid) {
             Write-LogInfo "$(Translate 'machineguid_updated') $newGuid"
         } else {
-            Write-LogError $(Translate "machineguid_update_failed")
+            Write-LogError "MachineGuid update failed"
         }
     } catch {
-        Write-LogError "$(Translate 'machineguid_error'): $_"
+        Write-LogError "Error updating MachineGuid: $_"
     }
 }
 
@@ -509,14 +377,14 @@ function Open-Website {
         Start-Process $randomSite
         
     } catch {
-        Write-LogError "Не удалось открыть сайт: $_"
+        Write-LogError "Failed to open website: $_"
     }
 }
 
 # Главная функция
 function Start-Main {
     Clear-Host
-    Select-Language
+    # Язык уже выбран как английский по умолчанию
     Write-Host @"
     ██████╗██╗   ██╗██████╗ ███████╗ ██████╗ ██████╗ 
    ██╔════╝██║   ██║██╔══██╗██╔════╝██╔═══██╗██╔══██╗
@@ -544,11 +412,9 @@ function Start-Main {
     Show-FollowInfo
     Write-LogInfo $(Translate "restart_required")
     
+    # Автоматически отключаем автообновление
     Disable-AutoUpdate
-    
-    # Открываем случайный сайт после успешного выполнения
-    Open-Website
 }
 
-# Оставляем только прямой вызов главной функции:
+# Запуск главной функции
 Start-Main
